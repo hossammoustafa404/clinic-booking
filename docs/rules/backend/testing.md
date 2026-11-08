@@ -42,13 +42,13 @@ user.controller.spec.ts
 
 ## What to Test
 
-| Layer            | Focus                                              |
-| ---------------- | -------------------------------------------------- |
-| Action service   | Single use case, CASL checks, error cases          |
-| Controller       | Routing, delegation to services, status codes      |
-| Guard/Hook       | Module-scoped guard behavior, auth hook side effects |
-| E2E              | Full HTTP round-trip, status codes, response shape |
-| Zod schemas      | **Do not unit-test.** No `*.schema.spec.ts` anywhere. |
+| Layer          | Focus                                                 |
+| -------------- | ----------------------------------------------------- |
+| Action service | Single use case, CASL checks, error cases             |
+| Controller     | Routing, delegation to services, status codes         |
+| Guard/Hook     | Module-scoped guard behavior, auth hook side effects  |
+| E2E            | Full HTTP round-trip, status codes, response shape    |
+| Zod schemas    | **Do not unit-test.** No `*.schema.spec.ts` anywhere. |
 
 - Prefer testing behavior over implementation details.
 - Do not test Prisma or NestJS framework internals.

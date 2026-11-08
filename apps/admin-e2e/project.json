@@ -1,0 +1,9 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@saas-kit/admin-e2e",
+  "sourceRoot": "apps/admin-e2e/src",
+  "projectType": "application",
+  "tags": ["type:app", "scope:admin"],
+  "implicitDependencies": ["@saas-kit/admin"],
+  "targets": {}
+}

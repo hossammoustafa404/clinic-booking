@@ -33,16 +33,18 @@ Export the provider and hooks from `features/auth/index.ts`.
 ## Usage in Components
 
 ```tsx
-"use client";
+'use client';
 
-import { Can, useAppAbility } from "../ability";
+import { Can, useAppAbility } from '../ability';
 
 <Can I="update" a="Post">
   <EditButton />
-</Can>
+</Can>;
 
 const ability = useAppAbility();
-if (ability.can("delete", "Post")) { /* ... */ }
+if (ability.can('delete', 'Post')) {
+  /* ... */
+}
 ```
 
 - Permission-dependent components are **Client Components**.

@@ -14,7 +14,8 @@
 
 ## shadcn/ui Usage
 
-- Import from `@/components/ui/*`. Never duplicate shadcn components.
+- Shared primitives live in `@saas-kit/components`. Import from `@saas-kit/components/ui/*`.
+- Never duplicate shadcn components inside `apps/web` or `apps/admin`.
 - Customize via `className` prop and Tailwind utilities. See `styling.md`.
-- For new UI primitives, add to `components/ui/` via `npx shadcn add <component>`.
+- For new UI primitives, add from an app with `npx shadcn@latest add <component>` — the monorepo `components.json` files route installs into `packages/components`.
 - Do not fork shadcn internals into `features/`.

@@ -1,10 +1,23 @@
 import { killPort } from '@nx/node/utils';
-/* eslint-disable */
+
+declare global {
+  var __SERVER_PID__: number | undefined;
+}
 
 module.exports = async function () {
-  // Put clean up logic here (e.g. stopping services, docker-compose, etc.).
-  // Hint: `globalThis` is shared between setup and teardown.
-  const port = process.env.PORT ? Number(process.env.PORT) : 3000;
-  await killPort(port);
+  try {
+    await killPort(Number(process.env.PORT ?? 3333));
+  } catch {
+    // The API already stopped.
+  }
+
+  if (globalThis.__SERVER_PID__) {
+    try {
+      process.kill(globalThis.__SERVER_PID__);
+    } catch {
+      // The process already exited.
+    }
+  }
+
   console.log(globalThis.__TEARDOWN_MESSAGE__);
 };

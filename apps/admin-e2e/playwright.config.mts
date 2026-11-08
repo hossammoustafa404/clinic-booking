@@ -5,7 +5,7 @@ import { getReadyUrl, workspaceRoot } from '@nx/devkit';
 const isCI = !!process.env['CI'];
 // getReadyUrl moves the address to the port the server task reported.
 const webServerAddress = getReadyUrl(
-  isCI ? 'http://localhost:3000' : 'http://127.0.0.1:3000',
+  isCI ? 'http://localhost:3001' : 'http://127.0.0.1:3001',
 );
 
 // For CI, you may want to set BASE_URL to the deployed application.
@@ -36,7 +36,9 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: isCI ? 'npx nx run @org/admin:start' : 'npx nx run @org/admin:dev',
+    command: isCI
+      ? 'npx nx run @saas-kit/admin:start'
+      : 'npx nx run @saas-kit/admin:dev',
     url: webServerAddress,
     reuseExistingServer: true,
     cwd: workspaceRoot,
@@ -45,16 +47,6 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
     },
 
     // Uncomment for mobile browsers support

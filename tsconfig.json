@@ -20,6 +20,15 @@
     },
     {
       "path": "./apps/admin"
+    },
+    {
+      "path": "./packages/schemas"
+    },
+    {
+      "path": "./packages/theme"
+    },
+    {
+      "path": "./packages/components"
     }
   ],
   "compilerOptions": {}

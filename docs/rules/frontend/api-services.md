@@ -20,8 +20,8 @@
 
 ```ts
 // features/users/services/api.ts
-import { privateFetcher } from "@/lib/fetcher";
-import { UserSchema, type CreateUserInput, type User } from "@saas-kit/schemas";
+import { privateFetcher } from '@/lib/fetcher';
+import { UserSchema, type CreateUserInput, type User } from '@saas-kit/schemas';
 
 export async function getUser(id: string): Promise<User> {
   const { data } = await privateFetcher.get(`/users/${id}`);
@@ -29,7 +29,7 @@ export async function getUser(id: string): Promise<User> {
 }
 
 export async function createUser(data: CreateUserInput): Promise<User> {
-  const { data } = await privateFetcher.post("/users", data);
+  const { data } = await privateFetcher.post('/users', data);
   return UserSchema.parse(data);
 }
 ```

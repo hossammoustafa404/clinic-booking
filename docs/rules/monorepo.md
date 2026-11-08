@@ -11,18 +11,22 @@ The codebase is an **Nx monorepo**. Nx orchestrates builds, tests, and lint acro
 │   ├── admin/            # Next.js — platform super-admin console — see frontend/
 │   └── server/           # NestJS — REST API — see backend/
 ├── packages/
-│   └── schemas/              # @saas-kit/schemas — shared Zod schemas and types
+│   ├── schemas/              # @saas-kit/schemas — shared Zod schemas and types
+│   ├── theme/                # @saas-kit/theme — shared CSS tokens / base styles
+│   └── components/           # @saas-kit/components — shared shadcn/ui primitives
 ├── nx.json
 ├── package.json              # Root workspace scripts only — no app logic
 └── tsconfig.base.json        # Path mappings for all projects
 ```
 
-| Path               | Nx project           | Import name         | Purpose                       |
-| ------------------ | -------------------- | ------------------- | ----------------------------- |
-| `apps/web`         | `@saas-kit/web`      | `@/` (app-internal) | Patient booking + clinic workspace |
-| `apps/admin`       | `@saas-kit/admin`    | `@/` (app-internal) | Platform super-admin console  |
-| `apps/server`      | `@saas-kit/server`   | `@/` (app-internal) | NestJS API server             |
-| `packages/schemas` | `@saas-kit/schemas`     | `@saas-kit/schemas`    | Shared contracts for all apps |
+| Path                  | Nx project             | Import name                    | Purpose                            |
+| --------------------- | ---------------------- | ------------------------------ | ---------------------------------- |
+| `apps/web`            | `@saas-kit/web`        | `@/` (app-internal)            | Patient booking + clinic workspace |
+| `apps/admin`          | `@saas-kit/admin`      | `@/` (app-internal)            | Platform super-admin console       |
+| `apps/server`         | `@saas-kit/server`     | `@/` (app-internal)            | NestJS API server                  |
+| `packages/schemas`    | `@saas-kit/schemas`    | `@saas-kit/schemas`            | Shared contracts for all apps      |
+| `packages/theme`      | `@saas-kit/theme`      | `@saas-kit/theme`              | Shared design tokens / base CSS    |
+| `packages/components` | `@saas-kit/components` | `@saas-kit/components/ui/*`    | Shared shadcn/ui primitives        |
 
 - **NEVER** put application code at the workspace root.
 - **NEVER** create `libs/` at root unless matching an existing Nx layout — prefer `packages/` for shared code.
@@ -31,10 +35,10 @@ The codebase is an **Nx monorepo**. Nx orchestrates builds, tests, and lint acro
 
 ## Apps Overview
 
-| App          | Stack   | Rule files  | Talks to                    |
-| ------------ | ------- | ----------- | --------------------------- |
-| `web` | Next.js | `frontend/` | `server` over HTTP      |
-| `admin`  | Next.js | `frontend/` | `server` over HTTP      |
+| App      | Stack   | Rule files  | Talks to                    |
+| -------- | ------- | ----------- | --------------------------- |
+| `web`    | Next.js | `frontend/` | `server` over HTTP          |
+| `admin`  | Next.js | `frontend/` | `server` over HTTP          |
 | `server` | NestJS  | `backend/`  | Database, external services |
 
 - Both frontends share the same stack conventions (`frontend/`) but have independent codebases, routes, and deployments.
@@ -49,6 +53,9 @@ web  ──┐
 admin   ──┼──► packages/schemas
 server  ──┘
 
+web  ──┐
+admin   ──┴──► packages/theme + packages/components
+
 web  ──X──► server     (HTTP only — no source imports)
 admin   ──X──► server     (HTTP only)
 web  ──X──► admin      (no cross-frontend imports)
@@ -59,19 +66,21 @@ packages    ──X──► apps           (libs never import apps)
 - Apps communicate over HTTP — never import source from another app.
 - Shared types and Zod schemas live in `@saas-kit/schemas` only. Examples stay on `.meta({ example })` — do not export `*Example` constants. See `naming-conventions.md`, `backend/validation.md`, `backend/api-docs.md`.
 - **NEVER** duplicate a schema or API contract inside any app when it belongs in `packages/schemas`.
+- Shared frontend tokens live in `@saas-kit/theme`. Shared shadcn primitives live in `@saas-kit/components`. **NEVER** copy either into an app.
+- `packages/components` may depend on `@saas-kit/theme`. Frontends may depend on both. Server must not depend on theme or components.
 
 ## Nx Tags & Module Boundaries
 
 Every project declares tags in `project.json`. Enforce via `@nx/eslint-plugin` `enforce-module-boundaries`:
 
-| Tag            | Projects                                | May depend on                       |
-| -------------- | --------------------------------------- | ----------------------------------- |
+| Tag            | Projects                 | May depend on                       |
+| -------------- | ------------------------ | ----------------------------------- |
 | `type:app`     | `web`, `admin`, `server` | `type:lib`                          |
-| `type:lib`     | `schemas`, …                            | `type:lib` with `scope:shared` only |
-| `scope:client` | `web`                            | `scope:shared`                      |
-| `scope:admin`  | `admin`                             | `scope:shared`                      |
-| `scope:server` | `server`                            | `scope:shared`                      |
-| `scope:shared` | `schemas`, …                            | `scope:shared`                      |
+| `type:lib`     | `schemas`, …             | `type:lib` with `scope:shared` only |
+| `scope:client` | `web`                    | `scope:shared`                      |
+| `scope:admin`  | `admin`                  | `scope:shared`                      |
+| `scope:server` | `server`                 | `scope:shared`                      |
+| `scope:shared` | `schemas`, `theme`, `components`, … | `scope:shared`               |
 
 ```json
 // apps/web/project.json
@@ -84,6 +93,12 @@ Every project declares tags in `project.json`. Enforce via `@nx/eslint-plugin` `
 { "tags": ["type:app", "scope:server"] }
 
 // packages/schemas/project.json
+{ "tags": ["type:lib", "scope:shared"] }
+
+// packages/theme/project.json
+{ "tags": ["type:lib", "scope:shared"] }
+
+// packages/components/project.json
 { "tags": ["type:lib", "scope:shared"] }
 ```
 
@@ -144,12 +159,12 @@ nx run-many -t lint test build -p @saas-kit/web,@saas-kit/admin,@saas-kit/server
 nx affected -t lint test build
 ```
 
-| Task                                               | When to run                                    |
-| -------------------------------------------------- | ---------------------------------------------- |
-| `nx affected -t lint`                              | Every commit — fast feedback                   |
-| `nx affected -t test`                              | Before PR — unit tests for touched projects    |
-| `nx affected -t build`                             | Before PR — compile all affected apps and libs |
-| `nx build @saas-kit/web` / `@saas-kit/admin` / `@saas-kit/server` | When verifying a full app build |
+| Task                                                              | When to run                                    |
+| ----------------------------------------------------------------- | ---------------------------------------------- |
+| `nx affected -t lint`                                             | Every commit — fast feedback                   |
+| `nx affected -t test`                                             | Before PR — unit tests for touched projects    |
+| `nx affected -t build`                                            | Before PR — compile all affected apps and libs |
+| `nx build @saas-kit/web` / `@saas-kit/admin` / `@saas-kit/server` | When verifying a full app build                |
 
 - Configure `targetDefaults` in `nx.json` for shared `inputs`, `cache`, and `dependsOn` (e.g. `build` depends on `^build`).
 - **NEVER** skip `nx affected` in CI — run only what changed to keep pipelines fast.
@@ -181,7 +196,7 @@ This workspace uses a **single version policy** ([Nx: Dependency Management Stra
 - **NEVER** add a package only to an app and skip the root.
 - **NEVER** add a backend-only dependency to `web` or `admin`.
 - **NEVER** add a frontend-only dependency to `server` unless genuinely shared (rare).
-- UI libraries needed by both frontends belong in root + each frontend's `package.json`, or a future shared `packages/ui`.
+- UI primitives shared by both frontends belong in `@saas-kit/components`; design tokens belong in `@saas-kit/theme`. Runtime UI deps (`radix-ui`, `class-variance-authority`, …) follow the single-version policy above.
 
 ## CI
 

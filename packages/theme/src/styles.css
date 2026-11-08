@@ -1,0 +1,205 @@
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Palette inspired by leading appointment products:
+  - Doctolib: navy ink (#00264c), brand blue (#045fae), soft blue surfaces
+  - Calendly: saturated blue CTAs, white canvas, blue-tinted neutrals
+*/
+
+:root {
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --foreground: #0b3558;
+  --card: #ffffff;
+  --card-foreground: #0b3558;
+  --popover: #ffffff;
+  --popover-foreground: #0b3558;
+  --primary: #006bff;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f8ff;
+  --secondary-foreground: #0b3558;
+  --muted: #f4f8ff;
+  --muted-foreground: #476788;
+  --accent: #eaf2ff;
+  --accent-foreground: #0b3558;
+  --destructive: #e5004c;
+  --destructive-foreground: #ffffff;
+  --border: #d4e0ed;
+  --input: #d4e0ed;
+  --ring: #006bff;
+  --sidebar: #f8f9fb;
+  --sidebar-foreground: #0b3558;
+  --sidebar-primary: #006bff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eaf2ff;
+  --sidebar-accent-foreground: #0b3558;
+  --sidebar-border: #d4e0ed;
+  --sidebar-ring: #006bff;
+  --surface: #f4f8ff;
+  --chart-1: #006bff;
+  --chart-2: #004eba;
+  --chart-3: #16a34a;
+  --chart-4: #aa6709;
+  --chart-5: #e5004c;
+}
+
+.dark {
+  --background: #071a31;
+  --foreground: #eaf2ff;
+  --card: #0c223d;
+  --card-foreground: #eaf2ff;
+  --popover: #0c223d;
+  --popover-foreground: #eaf2ff;
+  --primary: #6bb1ff;
+  --primary-foreground: #071a31;
+  --secondary: #122b4a;
+  --secondary-foreground: #eaf2ff;
+  --muted: #122b4a;
+  --muted-foreground: #a6bbd1;
+  --accent: #153557;
+  --accent-foreground: #c1defe;
+  --destructive: #ff4d78;
+  --destructive-foreground: #ffffff;
+  --border: #23486b;
+  --input: #23486b;
+  --ring: #6bb1ff;
+  --sidebar: #051425;
+  --sidebar-foreground: #eaf2ff;
+  --sidebar-primary: #6bb1ff;
+  --sidebar-primary-foreground: #071a31;
+  --sidebar-accent: #122b4a;
+  --sidebar-accent-foreground: #c1defe;
+  --sidebar-border: #23486b;
+  --sidebar-ring: #6bb1ff;
+  --surface: #0a1f38;
+  --chart-1: #6bb1ff;
+  --chart-2: #4d9fff;
+  --chart-3: #3db89a;
+  --chart-4: #e0a04a;
+  --chart-5: #ff4d78;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-surface: var(--surface);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --font-sans:
+    var(--font-heading), var(--font-arabic), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-heading:
+    var(--font-heading), var(--font-arabic), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-arabic-stack:
+    var(--font-arabic), var(--font-heading), ui-sans-serif, system-ui,
+    sans-serif;
+  --shadow-soft:
+    0 2px 4px rgba(5, 43, 71, 0.06), 0 12px 32px rgba(5, 43, 71, 0.08);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--color-foreground);
+  }
+
+  html[lang='ar'] body {
+    font-family: var(--font-arabic-stack);
+    line-height: 1.85;
+  }
+
+  html[lang='ar'] h1,
+  html[lang='ar'] h2,
+  html[lang='ar'] h3,
+  html[lang='ar'] h4,
+  html[lang='ar'] .font-heading {
+    font-family: var(--font-arabic-stack);
+    letter-spacing: 0;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-primary) 22%, white);
+    color: var(--color-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

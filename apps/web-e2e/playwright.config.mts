@@ -36,7 +36,9 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: isCI ? 'npx nx run @org/web:start' : 'npx nx run @org/web:dev',
+    command: isCI
+      ? 'npx nx run @saas-kit/web:start'
+      : 'npx nx run @saas-kit/web:dev',
     url: webServerAddress,
     reuseExistingServer: true,
     cwd: workspaceRoot,
@@ -45,16 +47,6 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
     },
 
     // Uncomment for mobile browsers support

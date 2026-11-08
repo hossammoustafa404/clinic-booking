@@ -1,0 +1,8 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@saas-kit/schemas",
+  "sourceRoot": "packages/schemas/src",
+  "projectType": "library",
+  "tags": ["type:lib", "scope:shared"],
+  "targets": {}
+}

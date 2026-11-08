@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "rtl": true,
+  "tailwind": {
+    "config": "",
+    "css": "../theme/src/styles.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@saas-kit/components",
+    "utils": "@saas-kit/components/lib/utils",
+    "hooks": "@saas-kit/components/hooks",
+    "lib": "@saas-kit/components/lib",
+    "ui": "@saas-kit/components/ui"
+  }
+}

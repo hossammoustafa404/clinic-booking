@@ -16,8 +16,14 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@org/source"],
+    "customConditions": ["@saas-kit/source"],
     "noUncheckedSideEffectImports": false,
-    "types": ["*"]
+    "types": ["*"],
+    "paths": {
+      "@saas-kit/schemas": ["./packages/schemas/src/index.ts"],
+      "@saas-kit/theme": ["./packages/theme/src/index.ts"],
+      "@saas-kit/components": ["./packages/components/src/index.ts"],
+      "@saas-kit/components/*": ["./packages/components/src/*"]
+    }
   }
 }

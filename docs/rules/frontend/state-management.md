@@ -11,9 +11,9 @@
 
 ```ts
 const userKeys = {
-  all: ["users"] as const,
+  all: ['users'] as const,
   detail: (id: string) => [...userKeys.all, id] as const,
-  list: (filters: string) => [...userKeys.all, "list", filters] as const,
+  list: (filters: string) => [...userKeys.all, 'list', filters] as const,
 };
 ```
 

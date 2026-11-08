@@ -1,0 +1,11 @@
+export { BookingPreview } from './booking-preview';
+export { ClosingSection } from './closing-section';
+export { FeaturesSection } from './features-section';
+export { HeroSection } from './hero-section';
+export { HowItWorksSection } from './how-it-works-section';
+export { LanguageSwitcher } from './language-switcher';
+export { PricingSection } from './pricing-section';
+export { ProofSection } from './proof-section';
+export { SiteFooter } from './site-footer';
+export { SiteHeader } from './site-header';
+export { ThemeToggle } from './theme-toggle';

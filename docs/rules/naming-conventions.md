@@ -99,35 +99,35 @@ Strict naming rules for **all packages** — frontend, backend, shared libraries
 
 ## Backend (NestJS)
 
-| Kind                       | Case                                                                                          | Example                                                        |
-| -------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| Module                     | `PascalCase` + `Module` (singular)                                                            | `UserModule`, `ObservabilityModule`                            |
-| Controller                 | `PascalCase` + `Controller` (singular)                                                        | `UserController`                                               |
-| Shared infra service       | `PascalCase` matching the capability + `Service`                                              | `ObservabilityService`, `MetricsService`, `PrismaService`      |
-| Action service             | `PascalCase` verb + resource + `Service`                                                      | `FindOneUserService`                                           |
-| Guard / Interceptor / Pipe / Filter / Middleware | `PascalCase` + kind                                                          | `HttpObservabilityMiddleware`                                  |
-| Module file                | `kebab-case.module.ts` (singular)                                                             | `user.module.ts`, `observability.module.ts`                    |
-| Shared infra service file  | `{name}.service.ts` in `services/{name}/` when the area has multiple; else next to the module | `services/metrics/metrics.service.ts`, `prisma.service.ts`     |
-| Controller file            | `kebab-case.controller.ts` (singular)                                                         | `user.controller.ts`                                           |
-| Action service folder      | `{verb}-{resource}/`                                                                          | `find-one-user/`                                               |
-| Action service file        | `{verb}-{resource}.service.ts`                                                                | `find-one-user/find-one-user.service.ts`                       |
-| Module constants file      | `{name}.constants.ts` at module root                                                          | `auth.constants.ts`                                            |
-| Interface file             | `{name}.interface.ts` in `interfaces/`                                                        | `create-auth-options.interface.ts`                             |
-| Interface                  | `PascalCase`                                                                                  | `CreateAuthOptions`                                            |
-| Enum file                  | `{name}.enum.ts` in `enums/`                                                                  | `user-role.enum.ts`                                            |
-| Enum                       | `PascalCase`                                                                                  | `UserRole`                                                     |
-| Controller spec            | colocated beside controller                                                                   | `user.controller.spec.ts`                                      |
-| Constants file             | `{module}.constants.ts`                                                                       | `observability.constants.ts`                                   |
-| Interface folder           | `interfaces/`                                                                                 | `shared/observability/interfaces/`                             |
-| Interface file             | `{name}.interface.ts` — **one interface per file**                                            | `http-outcome-request.interface.ts`                            |
-| Filter file                | `{name}.filter.ts` inside the owning module                                                   | `observability/filters/http-observability.filter.ts`           |
-| Interceptor file           | `{name}.interceptor.ts` inside the owning module                                              | `observability/interceptors/http-observability.interceptor.ts` |
-| Middleware file            | `{name}.middleware.ts` inside the owning module                                               | `observability/middlewares/http-observability.middleware.ts`   |
-| Listener file              | `{name}.listener.ts` inside the owning module                                                 | `observability/listeners/queue-observability.listener.ts`      |
-| Observability integration  | `{name}.plugin.ts` in `shared/observability/integrations/{target}/`                           | `integrations/better-auth/http-observability.plugin.ts`        |
-| Better-auth domain plugin  | `{name}.plugin.ts` in `modules/auth/plugins/`                                                 | `add-member.plugin.ts`                                         |
-| DTO file                   | `kebab-case.dto.ts` or verb-based                                                             | `create-user.dto.ts`                                           |
-| DTO class                  | `PascalCase` + `Dto`                                                                          | `CreateUserDto`                                                |
+| Kind                                             | Case                                                                                          | Example                                                        |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Module                                           | `PascalCase` + `Module` (singular)                                                            | `UserModule`, `ObservabilityModule`                            |
+| Controller                                       | `PascalCase` + `Controller` (singular)                                                        | `UserController`                                               |
+| Shared infra service                             | `PascalCase` matching the capability + `Service`                                              | `ObservabilityService`, `MetricsService`, `PrismaService`      |
+| Action service                                   | `PascalCase` verb + resource + `Service`                                                      | `FindOneUserService`                                           |
+| Guard / Interceptor / Pipe / Filter / Middleware | `PascalCase` + kind                                                                           | `HttpObservabilityMiddleware`                                  |
+| Module file                                      | `kebab-case.module.ts` (singular)                                                             | `user.module.ts`, `observability.module.ts`                    |
+| Shared infra service file                        | `{name}.service.ts` in `services/{name}/` when the area has multiple; else next to the module | `services/metrics/metrics.service.ts`, `prisma.service.ts`     |
+| Controller file                                  | `kebab-case.controller.ts` (singular)                                                         | `user.controller.ts`                                           |
+| Action service folder                            | `{verb}-{resource}/`                                                                          | `find-one-user/`                                               |
+| Action service file                              | `{verb}-{resource}.service.ts`                                                                | `find-one-user/find-one-user.service.ts`                       |
+| Module constants file                            | `{name}.constants.ts` at module root                                                          | `auth.constants.ts`                                            |
+| Interface file                                   | `{name}.interface.ts` in `interfaces/`                                                        | `create-auth-options.interface.ts`                             |
+| Interface                                        | `PascalCase`                                                                                  | `CreateAuthOptions`                                            |
+| Enum file                                        | `{name}.enum.ts` in `enums/`                                                                  | `user-role.enum.ts`                                            |
+| Enum                                             | `PascalCase`                                                                                  | `UserRole`                                                     |
+| Controller spec                                  | colocated beside controller                                                                   | `user.controller.spec.ts`                                      |
+| Constants file                                   | `{module}.constants.ts`                                                                       | `observability.constants.ts`                                   |
+| Interface folder                                 | `interfaces/`                                                                                 | `shared/observability/interfaces/`                             |
+| Interface file                                   | `{name}.interface.ts` — **one interface per file**                                            | `http-outcome-request.interface.ts`                            |
+| Filter file                                      | `{name}.filter.ts` inside the owning module                                                   | `observability/filters/http-observability.filter.ts`           |
+| Interceptor file                                 | `{name}.interceptor.ts` inside the owning module                                              | `observability/interceptors/http-observability.interceptor.ts` |
+| Middleware file                                  | `{name}.middleware.ts` inside the owning module                                               | `observability/middlewares/http-observability.middleware.ts`   |
+| Listener file                                    | `{name}.listener.ts` inside the owning module                                                 | `observability/listeners/queue-observability.listener.ts`      |
+| Observability integration                        | `{name}.plugin.ts` in `shared/observability/integrations/{target}/`                           | `integrations/better-auth/http-observability.plugin.ts`        |
+| Better-auth domain plugin                        | `{name}.plugin.ts` in `modules/auth/plugins/`                                                 | `add-member.plugin.ts`                                         |
+| DTO file                                         | `kebab-case.dto.ts` or verb-based                                                             | `create-user.dto.ts`                                           |
+| DTO class                                        | `PascalCase` + `Dto`                                                                          | `CreateUserDto`                                                |
 
 - Feature/module folder: `kebab-case`, **singular** — `user/`, `order-item/`.
 - Module constants: `{name}.constants.ts` at the module or shared-area root — `modules/auth/auth.constants.ts`, `shared/mail/mail.constants.ts`. **NEVER** a bare `constants.ts` on the server.

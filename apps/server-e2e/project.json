@@ -1,0 +1,18 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@saas-kit/server-e2e",
+  "sourceRoot": "apps/server-e2e/src",
+  "projectType": "application",
+  "tags": ["type:app", "scope:server"],
+  "implicitDependencies": ["@saas-kit/server"],
+  "targets": {
+    "e2e": {
+      "command": "jest --passWithNoTests",
+      "outputs": ["{projectRoot}/test-output/jest/coverage"],
+      "dependsOn": ["@saas-kit/server:build"],
+      "options": {
+        "cwd": "apps/server-e2e"
+      }
+    }
+  }
+}

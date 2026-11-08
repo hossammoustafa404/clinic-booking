@@ -35,10 +35,12 @@ export class UpdatePostService {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(userId: string, postId: string, input: UpdatePostInput) {
-    const post = await this.prisma.post.findUniqueOrThrow({ where: { id: postId } });
+    const post = await this.prisma.post.findUniqueOrThrow({
+      where: { id: postId },
+    });
     const ability = defineAbilityFor(await this.getUserPermissions(userId));
 
-    if (ability.cannot("update", subject("Post", post))) {
+    if (ability.cannot('update', subject('Post', post))) {
       throw new ForbiddenException();
     }
 

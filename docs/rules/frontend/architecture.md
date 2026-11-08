@@ -37,7 +37,9 @@ features/
 │   ├── constants.ts
 │   ├── types.ts          # Unions, aliases, schema re-exports — not object shapes
 │   └── utils.ts
-components/ui/        # shadcn/ui components (auto-generated)
+# Shared UI (workspace packages — not per-app copies)
+# packages/theme       → @saas-kit/theme (CSS tokens / base styles)
+# packages/components  → @saas-kit/components (shadcn/ui primitives)
 providers/
 ├── index.ts          # Barrel — sole entry for app-wide provider imports
 └── theme-provider.tsx

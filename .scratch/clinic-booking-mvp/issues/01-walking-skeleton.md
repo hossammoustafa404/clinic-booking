@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** claimed
 
 - [ ] `web`, `admin`, `server`, `web-e2e`, `admin-e2e`, and the shared schemas package exist with the agreed Nx tags and path aliases.
 - [ ] The shared health schema is consumed by `server`, `web`, and `admin`.
